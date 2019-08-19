@@ -1,37 +1,49 @@
-import React, { Fragment } from 'react';
-import { View, Text, Button } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { Link } from 'react-router-native';
 import styled from 'styled-components/native';
 
 const TabsHeader = () => {
-  const onPress = () => {
-    console.log('pressed');
-  };
-  console.log('Render Tabs');
+  const underlayColor = '#00000010';
   return (
     <Header>
-      <Tab onPress={onPress}>hello</Tab>
-      <Tab onPress={onPress}> hello</Tab>
-      <Tab onPress={onPress}>hello</Tab>
+      <Tab underlayColor={underlayColor} to="/steps">
+        <Text>Steps</Text>
+      </Tab>
+      <Separate />
+      <Tab underlayColor={underlayColor} to="/result">
+        <Text>Result</Text>
+      </Tab>
+      <Separate />
+      <Tab underlayColor={underlayColor} to="/parameters">
+        <Text>Parameters</Text>
+      </Tab>
     </Header>
   );
 };
 export { TabsHeader };
 
 const Header = styled(View)`
-  height: 100px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: red;
+  border-bottom-width: 1px;
 `;
 
-const Tab = styled(Text)`
+const Tab = styled(Link)`
   display: flex;
   flex: 1;
   height: 100%;
-  background-color: yellow;
-  text-align: center;
-  text-align-vertical: center;
-  border: 1px solid black;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Separate = styled(View)`
+  width: 0;
+  padding: 10px 0 10px 0;
+  border-color: gray;
+  border-left-width: 1px;
 `;

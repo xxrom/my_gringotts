@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { Text } from 'react-native';
 
-const Steps = () => {
-  console.log('render Steps');
+const Result = () => {
+  console.log('render Result');
   return (
     <Fragment>
-      <Text>Steps</Text>
+      <Text>Result</Text>
     </Fragment>
   );
 };
 
-export { Steps };
+export { Result };
