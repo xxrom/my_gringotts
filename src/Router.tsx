@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { NativeRouter, Route, MemoryRouter } from 'react-router-native';
+import { Route, MemoryRouter } from 'react-router-native';
 
 import Containers from 'containers';
 const { TabsHeader, Steps, Result, Parameters } = Containers;
