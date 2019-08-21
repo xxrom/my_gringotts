@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "containers": ["./src/containers"]
+      "containers": ["./src/containers"],
+      "@common": ["./src/common"]
     },
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */

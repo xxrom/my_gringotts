@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Text, View } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 interface AmountSignProps {
   value: number | string;

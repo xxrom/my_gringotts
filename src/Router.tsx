@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Route, MemoryRouter } from 'react-router-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import Containers from 'containers';
 const { TabsHeader, Steps, Result, Parameters } = Containers;
@@ -23,6 +23,7 @@ const Router = () => (
 );
 
 const Wrapper = styled(View)`
+  flex: 1;
   height: 100%;
 `;
 

@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { Text, View, Button, ScrollView } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
-import { Amount, Repeat } from './components';
+import { Amount, Repeat, AddStepDialog } from './components';
 
 export enum TypeEnum {
   FixedAmount = 'fixedAmount',
@@ -21,9 +21,10 @@ const step = {
 };
 
 const Steps = () => {
-  const [isShowedPopup, setIsShowedPopup] = useState(true);
+  const [isShowedPopup, setIsShowedPopup] = useState(false);
   const [steps, setSteps] = useState([step, step, step, step, step]);
   const onAdd = () => {
+    setIsShowedPopup(true);
     setSteps([...steps, step]);
   };
   return (
@@ -40,12 +41,19 @@ const Steps = () => {
           </StepWrapper>
         ))}
       </ListWrapper>
+
+      <AddStepDialog
+        isShowedPopup={isShowedPopup}
+        onTouchOutside={() => setIsShowedPopup(false)}
+      />
+
       <Button title="AddNew" onPress={onAdd} />
     </Wrapper>
   );
 };
 
 const Wrapper = styled(View)`
+  position: relative;
   flex: 1;
   border: 1px solid red;
 `;

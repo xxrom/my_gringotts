@@ -8,6 +8,7 @@ module.exports = {
         extensions: ['.tsx'],
         alias: {
           containers: './src/containers',
+          '@common': './src/common',
         },
       },
     ],
