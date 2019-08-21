@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, ScrollView } from 'react-native';
 import styled from 'styled-components';
 
 import { Amount, Repeat } from './components';
@@ -11,24 +11,24 @@ export enum TypeEnum {
 export enum RepeatEnum {
   EachMonthDay = 'EachMonthDay',
 }
+const step = {
+  amount: '10000',
+  type: TypeEnum.FixedAmount,
+  repeat: {
+    each: RepeatEnum.EachMonthDay,
+    value: 10,
+  },
+};
 
 const Steps = () => {
-  const step = {
-    amount: '10000',
-    type: TypeEnum.FixedAmount,
-    repeat: {
-      each: RepeatEnum.EachMonthDay,
-      value: 10,
-    },
-  };
-
+  const [isShowedPopup, setIsShowedPopup] = useState(true);
   const [steps, setSteps] = useState([step, step, step, step, step]);
   const onAdd = () => {
     setSteps([...steps, step]);
   };
   return (
-    <Fragment>
-      <Text>Steps:</Text>
+    <Wrapper>
+      <Text>Steps 22:</Text>
       <ListWrapper>
         {steps.map((item, index) => (
           <StepWrapper key={index}>
@@ -41,9 +41,14 @@ const Steps = () => {
         ))}
       </ListWrapper>
       <Button title="AddNew" onPress={onAdd} />
-    </Fragment>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled(View)`
+  flex: 1;
+  border: 1px solid red;
+`;
 
 const StepWrapper = styled(View)`
   flex-flow: row;
@@ -51,10 +56,8 @@ const StepWrapper = styled(View)`
   justify-content: space-between;
   padding: 0px;
   margin: 2.5px 5px;
-  /* border: 1px solid red; */
 `;
-const ListWrapper = styled(View)`
-  height: 60%;
+const ListWrapper = styled(ScrollView)`
   border: 1px solid red;
 `;
 const Type = styled(Text)`

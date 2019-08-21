@@ -1,15 +1,16 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Route, MemoryRouter } from 'react-router-native';
+import styled from 'styled-components';
 
 import Containers from 'containers';
 const { TabsHeader, Steps, Result, Parameters } = Containers;
 
 const Router = () => (
-  <MemoryRouter
-    initialEntries={['/steps', '/result', '/parameters']}
-    initialIndex={0}>
-    <View>
+  <Wrapper>
+    <MemoryRouter
+      initialEntries={['/steps', '/result', '/parameters']}
+      initialIndex={0}>
       <Route path="/" component={TabsHeader} />
 
       <Route exact path="/steps" component={Steps} />
@@ -17,8 +18,12 @@ const Router = () => (
       <Route exact path="/parameters" component={Parameters} />
       {/* <Route path="/about" component={About} /> */}
       {/* <Route path="/topics" component={Topics} /> */}
-    </View>
-  </MemoryRouter>
+    </MemoryRouter>
+  </Wrapper>
 );
+
+const Wrapper = styled(View)`
+  height: 100%;
+`;
 
 export default Router;
