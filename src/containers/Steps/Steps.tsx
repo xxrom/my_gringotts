@@ -21,7 +21,7 @@ const step = {
 };
 
 const Steps = () => {
-  const [isShowedPopup, setIsShowedPopup] = useState(false);
+  const [isShowedPopup, setIsShowedPopup] = useState(false); // default - false
   const [steps, setSteps] = useState([step, step, step, step, step]);
   const onAdd = () => {
     setIsShowedPopup(true);

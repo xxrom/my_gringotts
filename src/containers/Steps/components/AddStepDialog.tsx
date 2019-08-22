@@ -1,5 +1,7 @@
-import React from 'react';
-import { Dialog } from '@common';
+import React, { useState } from 'react';
+import { View, Text, Picker } from 'react-native';
+
+import { Dialog, LabelInput, LabelPicker } from '@common';
 
 interface AddStepDialogProps {
   isShowedPopup: boolean;
@@ -10,6 +12,34 @@ const AddStepDialog = ({
   isShowedPopup,
   onTouchOutside,
 }: AddStepDialogProps) => {
+  const [amount, setAmount] = useState();
+
+  const typeList = [
+    {
+      label: 'RUB',
+      value: 'rub',
+    },
+    {
+      label: 'USD',
+      value: 'usd',
+    },
+    {
+      label: 'EUR',
+      value: 'eur',
+    },
+  ];
+  const [type, setType] = useState(typeList[0].value);
+
+  // actionItems={[
+  //   {
+  //     text: 'Cancel',
+  //     onPress: onTouchOutside,
+  //   },
+  //   {
+  //     text: 'OK',
+  //     onPress: onTouchOutside,
+  //   },
+  // ]}>
   return (
     <Dialog
       isOpened={isShowedPopup}
@@ -17,18 +47,26 @@ const AddStepDialog = ({
       title={'Use Googles location service?'}
       supportingText={
         'Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.'
-      }
-      actionItems={[
-        {
-          text: 'Cancel',
-          onPress: onTouchOutside,
-        },
-        {
-          text: 'OK',
-          onPress: onTouchOutside,
-        },
-      ]}
-    />
+      }>
+      <View>
+        <Text>Inner text in dialog!!</Text>
+        <Text>Inner text in dialog!!</Text>
+        <Text>Inner text in dialog!!</Text>
+        <Text>Inner text in dialog!!</Text>
+        <LabelInput
+          label="Amount"
+          placeholder="enter amount"
+          value={amount}
+          onChange={setAmount}
+        />
+        <LabelPicker
+          label="Type"
+          selectedValue={type}
+          onChange={setType}
+          list={typeList}
+        />
+      </View>
+    </Dialog>
   );
 };
 
