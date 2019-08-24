@@ -13,7 +13,7 @@ interface DialogProps {
   isOpened: boolean;
 }
 const Dialog = (props: DialogProps): React.ReactElement | null => {
-  const { isOpened, onTouchOutside, children } = props;
+  const { isOpened, onTouchOutside, children, onSave } = props;
   console.log('isOpened', isOpened);
   return !isOpened ? null : (
     <Wrapper visible={isOpened} animationType="slide">
@@ -26,6 +26,7 @@ const Dialog = (props: DialogProps): React.ReactElement | null => {
           title="Add"
           onPress={() => {
             console.log('hide!');
+            onSave();
             onTouchOutside();
           }}
         />

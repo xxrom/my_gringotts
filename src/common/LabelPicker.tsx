@@ -24,12 +24,12 @@ const LabelPickerStyled = styled(View)`
 `;
 const LabelStyled = styled(Text)`
   flex: 1;
-  /*border: 1px solid red;*/
+  border: 1px solid red;
 `;
 const PickerStyled = styled(Picker)`
   height: 50px;
   width: 50px;
-  flex: 1;
-  /*border: 1px solid green;*/
+  flex: 2;
+  border: 1px solid green;
   padding: 5px;
 `;

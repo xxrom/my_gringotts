@@ -6,53 +6,70 @@ import { Dialog, LabelInput, LabelPicker } from '@common';
 interface AddStepDialogProps {
   isShowedPopup: boolean;
   onTouchOutside: (val: boolean) => void;
+  onSave: (amount: number, type: string) => void;
 }
+
+const typeList = [
+  {
+    label: 'fixed amount',
+    value: 'fixedAmount',
+  },
+  {
+    label: 'percent from sum',
+    value: 'percentFromSum',
+  },
+  {
+    label: 'repeat once',
+    value: 'repeatOnce',
+  },
+];
+const eachList = [
+  {
+    label: 'month day',
+    value: 'monthDay',
+  },
+  {
+    label: 'week day',
+    value: 'weekDay',
+  },
+  {
+    label: 'each day',
+    value: 'eachDay',
+  },
+  {
+    label: 'each week (Monday)',
+    value: 'eachWeek',
+  },
+  {
+    label: 'each year (01.01)',
+    value: 'eachYear',
+  },
+];
 
 const AddStepDialog = ({
   isShowedPopup,
   onTouchOutside,
+  onSave,
 }: AddStepDialogProps) => {
   const [amount, setAmount] = useState();
-
-  const typeList = [
-    {
-      label: 'RUB',
-      value: 'rub',
-    },
-    {
-      label: 'USD',
-      value: 'usd',
-    },
-    {
-      label: 'EUR',
-      value: 'eur',
-    },
-  ];
   const [type, setType] = useState(typeList[0].value);
+  const [each, setEach] = useState(eachList[0].value);
+  const [repeat, setRepeat] = useState();
 
-  // actionItems={[
-  //   {
-  //     text: 'Cancel',
-  //     onPress: onTouchOutside,
-  //   },
-  //   {
-  //     text: 'OK',
-  //     onPress: onTouchOutside,
-  //   },
-  // ]}>
+  const onSaveInner = () => onSave({ amount, type, each, repeat });
+
+  // isShowedPopup
   return (
     <Dialog
       isOpened={isShowedPopup}
       onTouchOutside={onTouchOutside}
       title={'Use Googles location service?'}
+      onSave={onSaveInner}
       supportingText={
         'Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.'
       }>
       <View>
-        <Text>Inner text in dialog!!</Text>
-        <Text>Inner text in dialog!!</Text>
-        <Text>Inner text in dialog!!</Text>
-        <Text>Inner text in dialog!!</Text>
+        <Text>Add new Step:</Text>
         <LabelInput
           label="Amount"
           placeholder="enter amount"
@@ -64,6 +81,18 @@ const AddStepDialog = ({
           selectedValue={type}
           onChange={setType}
           list={typeList}
+        />
+        <LabelPicker
+          label="Each"
+          selectedValue={each}
+          onChange={setEach}
+          list={eachList}
+        />
+        <LabelInput
+          label="Day/Month"
+          placeholder="week day/month day/year month"
+          value={repeat}
+          onChange={setRepeat}
         />
       </View>
     </Dialog>

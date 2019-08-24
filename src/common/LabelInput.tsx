@@ -25,7 +25,7 @@ const LabelStyled = styled(Text)`
   /*border: 1px solid red;*/
 `;
 const InputStyled = styled(TextInput)`
-  flex: 1;
+  flex: 2;
   /*border: 1px solid green;*/
   padding: 5px;
 `;

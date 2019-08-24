@@ -22,7 +22,13 @@ export interface StepProps {
     value: number;
   };
 }
-const step = {
+export interface onSaveProps {
+  amount: number;
+  type: string;
+  repeat: RepeatEnum;
+  repeatValue: number;
+}
+const step: StepProps = {
   amount: '10000',
   type: TypeEnum.FixedAmount,
   repeat: {
@@ -39,44 +45,58 @@ const Steps = () => {
     data.getSteps().then(res => setSteps(res));
   }, []);
 
-  // data.storeSteps(steps).then(() => {
-  //   console.log('dataStored outside !!!');
-  //   data.getSteps().then(res => {
-  //     console.log('get data !!!', res);
-  //   });
-  // });
-
-  const onAdd = () => {
-    setIsShowedPopup(true);
-
-    const newSteps = [...steps, step];
+  const setEverywhereSteps = (newSteps: Array<StepProps>) => {
     setSteps(newSteps);
     data.storeSteps(newSteps);
   };
-  const onClose = (index: number) => () => {
-    console.log(`onClose  ${index}`);
+  const onAdd = () => {
+    setIsShowedPopup(true);
+    setEverywhereSteps([...steps, step]);
   };
+  const onClose = (index: number) => () => {
+    const firstPart = steps.slice(0, index);
+    const secondPart = steps.slice(index + 1);
+    setEverywhereSteps([...firstPart, ...secondPart]);
+  };
+  const onSave = ({ amount, type, each, repeat }: onSaveProps) => {
+    console.log('Steps, onSave ', amount, type);
+    const newStep = {
+      ...step,
+      amount,
+      type,
+      repeat: {
+        each,
+        value: repeat,
+      },
+    };
+    setEverywhereSteps([...steps, newStep]);
+  };
+  const onTouchOutside = () => setIsShowedPopup(false);
+
   return (
     <Wrapper>
-      <Text>Steps 22:</Text>
-      <Icon name="rowing" />
-
-      <ListWrapper>
-        {steps.map((item, index) => (
+      <ScrollView>
+        {steps.map((item: StepProps, index: number) => (
           <StepWrapper key={index}>
-            <Type>{item.type}</Type>
+            <Cell>
+              <Type>{item.type}</Type>
+            </Cell>
+            <Cell>
+              <Amount value={item.amount} />
+            </Cell>
+            <Cell>
+              <Repeat each={item.repeat.each} value={item.repeat.value} />
+            </Cell>
 
-            <Amount value={item.amount} />
-
-            <Repeat each={item.repeat.each} value={item.repeat.value} />
             <Icon onPress={onClose(index)} size={15} name="close" />
           </StepWrapper>
         ))}
-      </ListWrapper>
+      </ScrollView>
 
       <AddStepDialog
         isShowedPopup={isShowedPopup}
-        onTouchOutside={() => setIsShowedPopup(false)}
+        onTouchOutside={onTouchOutside}
+        onSave={onSave}
       />
 
       <Button title="AddNew" onPress={onAdd} />
@@ -87,7 +107,6 @@ const Steps = () => {
 const Wrapper = styled(View)`
   position: relative;
   flex: 1;
-  border: 1px solid red;
 `;
 
 const StepWrapper = styled(View)`
@@ -97,15 +116,15 @@ const StepWrapper = styled(View)`
   padding: 0px;
   margin: 2.5px 5px;
 `;
-const ListWrapper = styled(ScrollView)`
-  border: 1px solid red;
-`;
 const Type = styled(Text)`
   padding: 5px 10px;
   border-radius: 50;
   color: white;
   background-color: gray;
   font-size: 10;
+`;
+const Cell = styled(View)`
+  flex: 1;
 `;
 
 export { Steps };
