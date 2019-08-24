@@ -1,6 +1,9 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, Button, ScrollView } from 'react-native';
+
 import styled from 'styled-components/native';
+import { Icon } from 'react-native-elements';
+import { data } from '@helper';
 
 import { Amount, Repeat, AddStepDialog } from './components';
 
@@ -10,6 +13,14 @@ export enum TypeEnum {
 
 export enum RepeatEnum {
   EachMonthDay = 'EachMonthDay',
+}
+export interface StepProps {
+  amount: string;
+  type: TypeEnum.FixedAmount;
+  repeat: {
+    each: RepeatEnum.EachMonthDay;
+    value: number;
+  };
 }
 const step = {
   amount: '10000',
@@ -22,14 +33,34 @@ const step = {
 
 const Steps = () => {
   const [isShowedPopup, setIsShowedPopup] = useState(false); // default - false
-  const [steps, setSteps] = useState([step, step, step, step, step]);
+  const [steps, setSteps] = useState([]);
+
+  useEffect(() => {
+    data.getSteps().then(res => setSteps(res));
+  }, []);
+
+  // data.storeSteps(steps).then(() => {
+  //   console.log('dataStored outside !!!');
+  //   data.getSteps().then(res => {
+  //     console.log('get data !!!', res);
+  //   });
+  // });
+
   const onAdd = () => {
     setIsShowedPopup(true);
-    setSteps([...steps, step]);
+
+    const newSteps = [...steps, step];
+    setSteps(newSteps);
+    data.storeSteps(newSteps);
+  };
+  const onClose = (index: number) => () => {
+    console.log(`onClose  ${index}`);
   };
   return (
     <Wrapper>
       <Text>Steps 22:</Text>
+      <Icon name="rowing" />
+
       <ListWrapper>
         {steps.map((item, index) => (
           <StepWrapper key={index}>
@@ -38,6 +69,7 @@ const Steps = () => {
             <Amount value={item.amount} />
 
             <Repeat each={item.repeat.each} value={item.repeat.value} />
+            <Icon onPress={onClose(index)} size={15} name="close" />
           </StepWrapper>
         ))}
       </ListWrapper>

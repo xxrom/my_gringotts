@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { Route, MemoryRouter } from 'react-router-native';
 import styled from 'styled-components/native';
 
-import Containers from 'containers';
-const { TabsHeader, Steps, Result, Parameters } = Containers;
+import { TabsHeader, Steps, Result, Parameters } from '@containers';
 
 const Router = () => (
   <Wrapper>

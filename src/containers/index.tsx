@@ -1,6 +1,4 @@
-import { Steps } from './Steps';
-import { TabsHeader } from './TabsHeader';
-import { Result } from './Result';
-import { Parameters } from './Parameters';
-
-export default { Steps, TabsHeader, Result, Parameters };
+export { Steps } from './Steps';
+export { TabsHeader } from './TabsHeader';
+export { Result } from './Result';
+export { Parameters } from './Parameters';

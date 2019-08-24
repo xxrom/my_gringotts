@@ -7,8 +7,10 @@ module.exports = {
         root: ['./src'],
         extensions: ['.tsx'],
         alias: {
-          containers: './src/containers',
+          '@containers': './src/containers',
+          '@containers/*': './src/containers/*',
           '@common': './src/common',
+          '@helper': './src/helper',
         },
       },
     ],

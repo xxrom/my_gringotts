@@ -53,6 +53,6 @@ const Wrapper = styled(Modal)`
 const Content = styled(View)`
   flex: 1;
   justify-content: space-between;
-  padding: 5%;
+  padding: 10%;
   background-color: #00000011;
 `;
