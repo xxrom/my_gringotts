@@ -18,10 +18,7 @@ const Dialog = (props: DialogProps): React.ReactElement | null => {
   return !isOpened ? null : (
     <Wrapper visible={isOpened} animationType="slide">
       <Content>
-        <View>
-          <Text>Dialog!</Text>
-          {children}
-        </View>
+        <View>{children}</View>
         <Button
           title="Add"
           onPress={() => {

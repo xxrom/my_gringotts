@@ -49,10 +49,7 @@ const Steps = () => {
     setSteps(newSteps);
     data.storeSteps(newSteps);
   };
-  const onAdd = () => {
-    setIsShowedPopup(true);
-    setEverywhereSteps([...steps, step]);
-  };
+  const onOpenDialog = () => setIsShowedPopup(true);
   const onClose = (index: number) => () => {
     const firstPart = steps.slice(0, index);
     const secondPart = steps.slice(index + 1);
@@ -69,7 +66,7 @@ const Steps = () => {
         value: repeat,
       },
     };
-    setEverywhereSteps([...steps, newStep]);
+    setEverywhereSteps([newStep, ...steps]);
   };
   const onTouchOutside = () => setIsShowedPopup(false);
 
@@ -99,7 +96,7 @@ const Steps = () => {
         onSave={onSave}
       />
 
-      <Button title="AddNew" onPress={onAdd} />
+      <Button title="Add New Point" onPress={onOpenDialog} />
     </Wrapper>
   );
 };
