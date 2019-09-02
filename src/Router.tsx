@@ -9,7 +9,7 @@ const Router = () => (
   <Wrapper>
     <MemoryRouter
       initialEntries={['/steps', '/result', '/parameters']}
-      initialIndex={0}>
+      initialIndex={1}>
       <Route path="/" component={TabsHeader} />
 
       <Route exact path="/steps" component={Steps} />
