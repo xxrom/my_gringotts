@@ -1,4 +1,6 @@
-const calculate = stepsData => {
+import get from 'lodash.get';
+
+const calculate = (stepsData: Array<any>): object => {
   console.log('stepsData', stepsData);
   const eachMonthDay: any = {};
   stepsData.map(step => {
@@ -23,13 +25,6 @@ const calculate = stepsData => {
   let curDay = new Date();
 
   console.log(`date ${curDay}`);
-
-  let nextDay = new Date();
-  nextDay.setDate(curDay.getDate() + 1);
-
-  console.log(`next ${nextDay}`);
-  let s = 155000;
-  let done = false;
 
   const res = new Array(200);
   /*
@@ -71,6 +66,17 @@ const calculate = stepsData => {
       };
     }
   };
+
+  const eachMonthDayObject = get(state, 'eachMonthDay', {});
+  const eachMonthDayArray = Object.keys(eachMonthDayObject).map(
+    (key, index) => {
+      console.log(`eachMonthDayObject ${key}`, eachMonthDayObject[key]);
+      return eachMonthDayObject[key];
+    },
+  );
+
+  let s = 155000;
+  let done = false;
 
   for (let i = 0; i < 200; i++) {
     const monthDay = curDay.getDate();
@@ -154,6 +160,10 @@ const calculate = stepsData => {
   }
 
   console.log(`END ${s}`);
+
+  return {
+    eachMonthDay,
+  };
 };
 
 export { calculate };
