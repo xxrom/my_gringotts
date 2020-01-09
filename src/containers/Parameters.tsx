@@ -19,6 +19,7 @@ const Parameters = () => {
         intervalDays = '',
         initSum = '',
       } = res;
+
       setStartDate(startDate);
       setEndDate(endDate);
       setIntervalDays(intervalDays);

@@ -15,17 +15,17 @@ export enum RepeatEnum {
   EachMonthDay = 'EachMonthDay',
 }
 export interface StepProps {
-  amount: string;
+  amount: string | number;
   type: TypeEnum.FixedAmount;
   repeat: {
-    each: RepeatEnum.EachMonthDay;
+    each: RepeatEnum;
     value: number;
   };
 }
 export interface onSaveProps {
   amount: number;
-  type: string;
-  repeat: RepeatEnum;
+  type: TypeEnum;
+  repeatEach: RepeatEnum;
   repeatValue: number;
 }
 const step: StepProps = {
@@ -39,7 +39,7 @@ const step: StepProps = {
 
 const Steps = () => {
   const [isShowedPopup, setIsShowedPopup] = useState(false); // default - false
-  const [steps, setSteps] = useState([]);
+  const [steps, setSteps] = useState([] as Array<StepProps>);
 
   useEffect(() => {
     data.getSteps().then(res => setSteps(res));
@@ -55,15 +55,15 @@ const Steps = () => {
     const secondPart = steps.slice(index + 1);
     setEverywhereSteps([...firstPart, ...secondPart]);
   };
-  const onSave = ({ amount, type, each, repeat }: onSaveProps) => {
+  const onSave = ({ amount, type, repeatValue, repeatEach }: onSaveProps) => {
     console.log('Steps, onSave ', amount, type);
     const newStep = {
       ...step,
       amount,
       type,
       repeat: {
-        each,
-        value: repeat,
+        each: repeatEach,
+        value: repeatValue,
       },
     };
     setEverywhereSteps([newStep, ...steps]);

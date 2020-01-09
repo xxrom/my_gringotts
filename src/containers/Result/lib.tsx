@@ -1,9 +1,36 @@
 import get from 'lodash.get';
 
+const makeObj = ({ index, monthDay, month, sum, description }: any): object => {
+  const point = {
+    index,
+    monthDay,
+    month,
+    sum,
+  };
+  const event = {
+    sum,
+    description: 'sum description',
+  };
+
+  return {
+    ...point,
+    events: [event],
+  };
+
+  // if (res[index]) {
+  //   res[index].events = [...res[index].events, event];
+  // } else {
+  //   res[index] = {
+  //     ...point,
+  //     events: [event],
+  //   };
+  // }
+};
+
 const calculate = (stepsData: Array<any>): object => {
   console.log('stepsData', stepsData);
   const eachMonthDay: any = {};
-  stepsData.map(step => {
+  stepsData.forEach(step => {
     const { repeat, amount } = step;
     switch (repeat.each) {
       case 'EachMonthDay':
@@ -25,8 +52,6 @@ const calculate = (stepsData: Array<any>): object => {
   let curDay = new Date();
 
   console.log(`date ${curDay}`);
-
-  const res = new Array(200);
   /*
   weekDay?: number;
   monthDay?: number;
@@ -39,44 +64,18 @@ const calculate = (stepsData: Array<any>): object => {
     stepProps: StepProps; // step info
   }>;
   */
-  const makeObj = ({
-    index,
-    monthDay,
-    month,
-    sum,
-    description,
-  }: object): void => {
-    const point = {
-      index,
-      monthDay,
-      month,
-      sum,
-    };
-    const event = {
-      sum,
-      description: 'sum description',
-    };
 
-    if (res[index]) {
-      res[index].events = [...res[index].events, event];
-    } else {
-      res[index] = {
-        ...point,
-        events: [event],
-      };
-    }
-  };
-
-  const eachMonthDayObject = get(state, 'eachMonthDay', {});
-  const eachMonthDayArray = Object.keys(eachMonthDayObject).map(
-    (key, index) => {
-      console.log(`eachMonthDayObject ${key}`, eachMonthDayObject[key]);
-      return eachMonthDayObject[key];
-    },
-  );
+  // const eachMonthDayObject = get(stepsData, 'eachMonthDay', {});
+  // const eachMonthDayArray = Object.keys(eachMonthDayObject).map(
+  //   (key, index) => {
+  //     console.log(`eachMonthDayObject ${key}`, eachMonthDayObject[key]);
+  //     return eachMonthDayObject[key];
+  //   },
+  // );
 
   let s = 155000;
   let done = false;
+  let list = [];
 
   for (let i = 0; i < 200; i++) {
     const monthDay = curDay.getDate();
@@ -88,7 +87,7 @@ const calculate = (stepsData: Array<any>): object => {
       // # w
       s += 110000;
       console.log(`${i} / ${monthDay} ${month} || s =+ 135000 | ${s}`);
-      res.push(
+      list.push(
         makeObj({
           monthDay,
           weekDay,
@@ -103,7 +102,7 @@ const calculate = (stepsData: Array<any>): object => {
       // # flat
       s -= 50000;
       console.log(`${i} / ${monthDay} ${month} || Flat -50.000 | ${s}`);
-      res.push(
+      list.push(
         makeObj({
           monthDay,
           weekDay,
@@ -163,6 +162,7 @@ const calculate = (stepsData: Array<any>): object => {
 
   return {
     eachMonthDay,
+    list,
   };
 };
 

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, Picker } from 'react-native';
 
 import { Dialog, LabelInput, LabelPicker } from '@common';
+import { onSaveProps } from '../Steps';
 
 interface AddStepDialogProps {
   isShowedPopup: boolean;
   onTouchOutside: (val: boolean) => void;
-  onSave: (amount: number, type: string) => void;
+  onSave: (object: onSaveProps) => void;
 }
 
 const typeList = [
