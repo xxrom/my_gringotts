@@ -1,5 +1,10 @@
 import { AppRegistry } from 'react-native';
-import Router from './src/Router';
-import { name as appName } from './app.json';
+import { Provider } from 'react-redux';
 
-AppRegistry.registerComponent(appName, () => Router);
+import Router from './src/Router';
+import { name } from './app.json';
+import store from './src/store';
+
+AppRegistry.registerComponent(name, () => (
+  <Provider store={store}>Router</Provider>
+));
