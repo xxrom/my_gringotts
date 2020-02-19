@@ -11,7 +11,6 @@ const Router = () => (
       initialEntries={['/steps', '/result', '/parameters']}
       initialIndex={1}>
       <Route path="/" component={TabsHeader} />
-
       <Route exact path="/steps" component={Steps} />
       <Route exact path="/result" component={Result} />
       <Route exact path="/parameters" component={Parameters} />
